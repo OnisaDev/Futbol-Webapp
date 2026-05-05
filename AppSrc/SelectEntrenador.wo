@@ -98,6 +98,8 @@ Object oSelectEntrenador is a cWebView
 // ToDo: Fill in the from-parent child Select view object name for navigate forward
 //        WebRegisterPath ntNavigateForward oSelectView
 
+WebRegisterPath ntNavigateForward oZoomEntrenador
+
         Procedure OnRowClick String sRowId
             tWebNavigateData NavigateData
             Get GetNavigateData to NavigateData
@@ -114,7 +116,7 @@ Object oSelectEntrenador is a cWebView
                     Case Break
 
                 Case (NavigateData.eNavigateType = nfFromMain)
-                    Send NavigateClose Self
+                    Send NavigateForward of oZoomEntrenador Self
                     Case Break
 
                 Case Else // must be nfUndefined
