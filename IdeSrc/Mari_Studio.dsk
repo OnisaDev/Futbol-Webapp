@@ -7,26 +7,59 @@ GroupCount=1
 HorizontalGroups=1
 [TabGroup0]
 GroupSize=40
-SelectedTab=1
+SelectedTab=4
 [Window0]
-Filename=D:\DataFlex Projects\futbol\AppSrc\WebApp.src
+Filename=D:\DataFlex Projects\futbol\AppSrc\SelectEntrenador.wo
 ViewType=1
 Top=21
 Left=0
 Bottom=726
 Right=1428
-CursorLine=190
-CursorColumn=27
+CursorLine=100
+CursorColumn=0
 TabIndex=0
 TabGroup=0
 [Window1]
-Filename=D:\DataFlex Projects\futbol\AppSrc\ZoomEntrenador.wo
+Filename=D:\DataFlex Projects\futbol\AppSrc\SelectEquipo.wo
 ViewType=1
 Top=21
 Left=0
 Bottom=726
 Right=1428
-CursorLine=149
-CursorColumn=11
+CursorLine=81
+CursorColumn=45
 TabIndex=1
+TabGroup=0
+[Window2]
+Filename=D:\DataFlex Projects\futbol\AppSrc\SelectJugador.wo
+ViewType=1
+Top=21
+Left=0
+Bottom=726
+Right=1428
+CursorLine=100
+CursorColumn=46
+TabIndex=2
+TabGroup=0
+[Window3]
+Filename=D:\DataFlex Projects\futbol\AppSrc\SelectLiga.wo
+ViewType=1
+Top=21
+Left=0
+Bottom=726
+Right=1428
+CursorLine=90
+CursorColumn=43
+TabIndex=3
+TabGroup=0
+[Window4]
+Filename=D:\DataFlex Projects\futbol\AppSrc\SelectPosicion.wo
+ViewType=1
+Top=21
+Left=0
+Bottom=726
+Right=1428
+CursorLine=67
+CursorColumn=47
+TabIndex=4
 TabGroup=0
