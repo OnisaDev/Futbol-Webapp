@@ -1,5 +1,5 @@
 Compiling Program: D:\DataFlex Projects\futbol\AppSrc\WebApp.src
-Memory Available: 12278878208
+Memory Available: 11578200064
 1>Use AllWebAppClasses.pkg
 Using pre-compiled package ALLWEBAPPCLASSES.PKG
 Including file: AllWebAppClasses.x64.pkd    (D:\Program Files\DataFlex 25.0\Pkg\AllWebAppClasses.x64.pkd)
@@ -3504,14 +3504,14 @@ Including file: ZoomLiga.wo    (D:\DataFlex Projects\futbol\AppSrc\ZoomLiga.wo)
 39089>Send StartWebApp of oWebApp
 39090>
 Summary
-Memory Available: 12274196480
+Memory Available: 11576352768
 Total Warnings : 0
 Total Errors   : 0
-Total Symbols  : 25635
+Total Symbols  : 25656
 Total Resources: 0
 Total Commands : 39089
 Total Windows  : 0
 Total Pages    : 0
 Static Data    : 485055
 Message area   : 262411
-Total Blocks   : 17362
+Total Blocks   : 17368
