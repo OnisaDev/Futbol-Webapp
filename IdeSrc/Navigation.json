@@ -17,8 +17,8 @@
              "sY": "12.5"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#001634",
+             "sColorLM": "#CBE3FF"
            },
            "bHidden": false
          },
@@ -29,8 +29,8 @@
              "sY": "75"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#006EFF",
+             "sColorLM": "#006EFF"
            },
            "bHidden": false
          },
@@ -41,8 +41,8 @@
              "sY": "315"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#0058CF",
+             "sColorLM": "#2B8CFF"
            },
            "bHidden": false
          },
@@ -53,8 +53,8 @@
              "sY": "745"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#001634",
+             "sColorLM": "#CBE3FF"
            },
            "bHidden": false
          },
@@ -65,8 +65,8 @@
              "sY": "315"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#00429B",
+             "sColorLM": "#63A9FF"
            },
            "bHidden": false
          },
@@ -77,8 +77,8 @@
              "sY": "1175"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#001634",
+             "sColorLM": "#CBE3FF"
            },
            "bHidden": false
          },
@@ -89,8 +89,8 @@
              "sY": "315"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#00429B",
+             "sColorLM": "#63A9FF"
            },
            "bHidden": false
          },
@@ -101,8 +101,8 @@
              "sY": "0"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#001634",
+             "sColorLM": "#CBE3FF"
            },
            "bHidden": false
          },
@@ -113,8 +113,8 @@
              "sY": "555"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#002C68",
+             "sColorLM": "#97C6FF"
            },
            "bHidden": false
          },
@@ -125,8 +125,8 @@
              "sY": "985"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#0058CF",
+             "sColorLM": "#2B8CFF"
            },
            "bHidden": false
          },
@@ -137,8 +137,8 @@
              "sY": "555"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#001634",
+             "sColorLM": "#CBE3FF"
            },
            "bHidden": false
          },
@@ -149,8 +149,8 @@
              "sY": "1415"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#006EFF",
+             "sColorLM": "#006EFF"
            },
            "bHidden": false
          },
@@ -161,8 +161,8 @@
              "sY": "567.5"
            },
            "TabColor": {
-             "sColorDM": "",
-             "sColorLM": ""
+             "sColorDM": "#001634",
+             "sColorLM": "#CBE3FF"
            },
            "bHidden": false
          }
