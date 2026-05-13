@@ -1,5 +1,5 @@
 Compiling Program: D:\DataFlex Projects\futbol\AppSrc\WebApp.src
-Memory Available: 11895500800
+Memory Available: 10600378368
 1>Use AllWebAppClasses.pkg
 Using pre-compiled package ALLWEBAPPCLASSES.PKG
 Including file: AllWebAppClasses.x64.pkd    (D:\Program Files\DataFlex 25.0\Pkg\AllWebAppClasses.x64.pkd)
@@ -3336,7 +3336,6 @@ Including file: ZoomLiga.wo    (D:\DataFlex Projects\futbol\AppSrc\ZoomLiga.wo)
 38945>>>Use cWebMenuGroup.pkg
 38945>>>Use cWebMenuItem.pkg
 38945>>>Use cWebForm.pkg
-38945>>>
 38945>>>Use cligaDataDictionary.dd
 38945>>>
 38945>>>Object oZoomLiga is a cWebView
@@ -3432,86 +3431,107 @@ Including file: ZoomLiga.wo    (D:\DataFlex Projects\futbol\AppSrc\ZoomLiga.wo)
 39035>>>            Procedure OnClick
 39038>>>                Send RefreshRecord
 39039>>>            End_Procedure
-39040>>>
-39040>>>        End_Object 
-39041>>>    End_Object 
-39042>>>
-39042>>>    Procedure SetActionButtons
-39045>>>        tWebNavigateData NavigateData
-39045>>>        tWebNavigateData NavigateData
-39045>>>        Boolean bHasRecord
-39045>>>        Handle hoDD
-39045>>>
-39045>>>        Get Server to hoDD
-39046>>>        Get GetNavigateData to NavigateData
-39047>>>        Get HasRecord of hoDD to bHasRecord
-39048>>>
-39048>>>        // let's hide all buttons and then Show the ones we want
-39048>>>        WebSet pbRender of oEditBtn to False
-39049>>>        WebSet pbRender of oSaveBtn to False
-39050>>>        WebSet pbRender of oCancelChangesBtn to False
-39051>>>        WebSet pbRender of oDeleteBtn to False
+39040>>>        End_Object
+39041>>>        
+39041>>>   // Añado para tarea       
+39041>>>        Object oEquiposBtn is a cWebMenuItem
+39043>>>            Set psCaption to "Equipos"
+39044>>>            Set psCSSClass to "WebIcon_Search"
+39045>>>            Set peActionDisplay to adMenu
+39046>>>
+39046>>>            WebRegisterPath ntNavigateForward oSelectEquipo
 39052>>>
-39052>>>        If (NavigateData.bReadOnly) Begin
-39054>>>            WebSet pbRender of oEditBtn to True
-39055>>>        End
-39055>>>>
-39055>>>        Else Begin
-39056>>>            WebSet pbRender of oSaveBtn to True
-39057>>>            WebSet pbRender of oCancelChangesBtn to True
-39058>>>            WebSet pbRender of oDeleteBtn to bHasRecord
-39059>>>        End
-39059>>>>
-39059>>>    End_Procedure
-39060>>>
-39060>>>    Procedure OnViewSaved Handle hoServer Boolean bChanged
-39063>>>        // Close after save
-39063>>>        Send NavigateClose Self
-39064>>>    End_Procedure
-39065>>>
-39065>>>    // this will close the view after a delete
-39065>>>    Procedure OnViewDeleted Handle hoDDO
-39068>>>        Send NavigateClose Self
-39069>>>    End_Procedure
+39052>>>            Procedure OnClick
+39055>>>                Send NavigatePath
+39056>>>            End_Procedure
+39057>>>
+39057>>>            Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
+39060>>>                Move nfFromParent to NavigateData.eNavigateType
+39061>>>            End_Procedure
+39062>>>
+39062>>>        End_Object
+39063>>>    End_Object    
+39064>>>    // -
+39064>>>
+39064>>>
+39064>>>    Procedure SetActionButtons
+39067>>>        tWebNavigateData NavigateData
+39067>>>        tWebNavigateData NavigateData
+39067>>>        Boolean bHasRecord
+39067>>>        Handle hoDD
+39067>>>
+39067>>>        Get Server to hoDD
+39068>>>        Get GetNavigateData to NavigateData
+39069>>>        Get HasRecord of hoDD to bHasRecord
 39070>>>
-39070>>>    Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
-39073>>>        Case Begin
-39073>>>            Case (NavigateData.eNavigateType = nfFromMain)
-39075>>>                // If from main, this is a propbably a main file Select to Zoom.
-39075>>>                Case Break
-39076>>>
-39076>>>            Case (NavigateData.eNavigateType = nfFromParent)
-39079>>>                // If from parent, this is a constrained drill down.
-39079>>>                Case Break
-39080>>>
-39080>>>            Case (NavigateData.eNavigateType = nfFromChild)
-39083>>>                // If from child, this is a probably a parent Zoom from a Zoom.
-39083>>>                Case Break
-39084>>>
-39084>>>            Case Else // must be nfUndefined
-39084>>>
-39084>>>        Case End
-39084>>>
-39084>>>        Send SetActionButtons
-39085>>>
-39085>>>    End_Procedure
-39086>>>
-39086>>>End_Object 
-39087>    Set phoDefaultView to oDashboard
-39088>
-39088>End_Object
-39089>
-39089>Send StartWebApp of oWebApp
-39090>
+39070>>>        // let's hide all buttons and then Show the ones we want
+39070>>>        WebSet pbRender of oEditBtn to False
+39071>>>        WebSet pbRender of oSaveBtn to False
+39072>>>        WebSet pbRender of oCancelChangesBtn to False
+39073>>>        WebSet pbRender of oDeleteBtn to False
+39074>>>        //Añado para tarea
+39074>>>        WebSet pbRender of oEquiposBtn to True
+39075>>>
+39075>>>        If (NavigateData.bReadOnly) Begin
+39077>>>            WebSet pbRender of oEditBtn to True
+39078>>>        End
+39078>>>>
+39078>>>        Else Begin
+39079>>>            WebSet pbRender of oSaveBtn to True
+39080>>>            WebSet pbRender of oCancelChangesBtn to True
+39081>>>            WebSet pbRender of oDeleteBtn to bHasRecord
+39082>>>        End
+39082>>>>
+39082>>>    End_Procedure
+39083>>>
+39083>>>    Procedure OnViewSaved Handle hoServer Boolean bChanged
+39086>>>        // Close after save
+39086>>>        Send NavigateClose Self
+39087>>>    End_Procedure
+39088>>>
+39088>>>    // this will close the view after a delete
+39088>>>    Procedure OnViewDeleted Handle hoDDO
+39091>>>        Send NavigateClose Self
+39092>>>    End_Procedure
+39093>>>
+39093>>>    Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
+39096>>>        Case Begin
+39096>>>            Case (NavigateData.eNavigateType = nfFromMain)
+39098>>>                // If from main, this is a propbably a main file Select to Zoom.
+39098>>>                Case Break
+39099>>>
+39099>>>            Case (NavigateData.eNavigateType = nfFromParent)
+39102>>>                // If from parent, this is a constrained drill down.
+39102>>>                Case Break
+39103>>>
+39103>>>            Case (NavigateData.eNavigateType = nfFromChild)
+39106>>>                // If from child, this is a probably a parent Zoom from a Zoom.
+39106>>>                Case Break
+39107>>>
+39107>>>            Case Else // must be nfUndefined
+39107>>>
+39107>>>        Case End
+39107>>>
+39107>>>        Send SetActionButtons
+39108>>>
+39108>>>    End_Procedure
+39109>>>
+39109>>>End_Object 
+39110>    Set phoDefaultView to oDashboard
+39111>
+39111>End_Object
+39112>
+39112>Send StartWebApp of oWebApp
+39113>
 Summary
-Memory Available: 11884957696
+Memory Available: 10582388736
 Total Warnings : 0
 Total Errors   : 0
-Total Symbols  : 25635
+Total Symbols  : 25643
 Total Resources: 0
-Total Commands : 39089
+Total Commands : 39112
 Total Windows  : 0
 Total Pages    : 0
-Static Data    : 485055
-Message area   : 262411
-Total Blocks   : 17362
+Static Data    : 485285
+Message area   : 262621
+Total Blocks   : 17370
