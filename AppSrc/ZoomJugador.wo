@@ -123,6 +123,30 @@ Object oZoomJugador is a cWebView
             End_Procedure
 
         End_Object 
+        
+        // Añado para tarea
+        //Botón que navega a SelectPosicion desde ZoomJugador
+        // Navegación de tipo Undefined porque no hay relación directa entre jugador y posicion
+        // La relación existe a través de la tabla intermedia jugadorposicion
+        Object oPosicionBtn is a cWebMenuItem
+            Set psCaption to "Posiciones"
+            Set psCSSClass to "WebIcon_Search"
+            Set peActionDisplay to adMenu
+
+            WebRegisterPath ntNavigateForward oSelectPosicion
+
+            Procedure OnClick
+                Send NavigatePath
+            End_Procedure
+
+            Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
+                // nfUndefined porque no hay relacion DD directa entre jugador y posicion
+                Move nfUndefined to NavigateData.eNavigateType
+            End_Procedure
+
+        End_Object
+        
+        
     End_Object 
 
     Procedure SetActionButtons
@@ -139,6 +163,11 @@ Object oZoomJugador is a cWebView
         WebSet pbRender of oSaveBtn to False
         WebSet pbRender of oCancelChangesBtn to False
         WebSet pbRender of oDeleteBtn to False
+        
+                    
+        //Añado para tarea
+        // Posiciones siempre visible, navegación libre sin restricción de padre/hijo
+        WebSet pbRender of oPosicionBtn to True
 
         If (NavigateData.bReadOnly) Begin
             WebSet pbRender of oEditBtn to True
