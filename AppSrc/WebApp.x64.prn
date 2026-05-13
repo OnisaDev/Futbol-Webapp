@@ -1,5 +1,5 @@
 Compiling Program: D:\DataFlex Projects\futbol\AppSrc\WebApp.src
-Memory Available: 9961492480
+Memory Available: 8345714688
 1>Use AllWebAppClasses.pkg
 Using pre-compiled package ALLWEBAPPCLASSES.PKG
 Including file: AllWebAppClasses.x64.pkd    (D:\Program Files\DataFlex 25.0\Pkg\AllWebAppClasses.x64.pkd)
@@ -3540,42 +3540,50 @@ Including file: ZoomLiga.wo    (D:\DataFlex Projects\futbol\AppSrc\ZoomLiga.wo)
 39113>>>        Case Begin
 39113>>>            Case (NavigateData.eNavigateType = nfFromMain)
 39115>>>                // If from main, this is a propbably a main file Select to Zoom.
-39115>>>                Case Break
-39116>>>
-39116>>>            Case (NavigateData.eNavigateType = nfFromParent)
-39119>>>                // If from parent, this is a constrained drill down.
-39119>>>                Case Break
-39120>>>
-39120>>>            Case (NavigateData.eNavigateType = nfFromChild)
-39123>>>                // If from child, this is a probably a parent Zoom from a Zoom.
-39123>>>                Case Break
-39124>>>
-39124>>>            Case Else // must be nfUndefined
-39124>>>
-39124>>>        Case End
-39124>>>        //Añado para tarea
-39124>>>        Send Constrain of oequipo_DD 
-39125>>>        Send GridRefresh of oEquiposList
-39126>>>        Send SetActionButtons
-39127>>>        //
-39127>>>    End_Procedure
-39128>>>
-39128>>>End_Object 
-39129>    Set phoDefaultView to oDashboard
-39130>
-39130>End_Object
+39115>>>                //Añado para tarea
+39115>>>                //Mostramos el InvokingObject para ver qué objeto disparó la navegación
+39115>>>                Send ShowInfoBox (String(hoInvokingObject)) "InvokingObject"
+39116>>>                Case Break
+39117>>>
+39117>>>            Case (NavigateData.eNavigateType = nfFromParent)
+39120>>>                // If from parent, this is a constrained drill down.
+39120>>>                Case Break
+39121>>>
+39121>>>            Case (NavigateData.eNavigateType = nfFromChild)
+39124>>>                // If from child, this is a probably a parent Zoom from a Zoom.
+39124>>>                Case Break
+39125>>>
+39125>>>            Case Else // must be nfUndefined
+39125>>>
+39125>>>        Case End
+39125>>>        //Añado para tarea
+39125>>>        // TODO: La lista oEquiposList no muestra datos aunque el DD oequipo_DD
+39125>>>        // está correctamente vinculado a oliga_DD via DDO_Server.
+39125>>>        // Send Constrain y Send GridRefresh no son suficientes para mostrar la lista.
+39125>>>        // Preguntar al profesor cómo forzar la carga de datos de un DD secundario
+39125>>>        // en una lista embebida dentro de un ZoomView.
+39125>>>        Send Constrain of oequipo_DD 
+39126>>>        Send GridRefresh of oEquiposList
+39127>>>        Send SetActionButtons
+39128>>>        //
+39128>>>    End_Procedure
+39129>>>
+39129>>>End_Object 
+39130>    Set phoDefaultView to oDashboard
 39131>
-39131>Send StartWebApp of oWebApp
+39131>End_Object
 39132>
+39132>Send StartWebApp of oWebApp
+39133>
 Summary
-Memory Available: 9956257792
+Memory Available: 8343248896
 Total Warnings : 0
 Total Errors   : 0
 Total Symbols  : 25644
 Total Resources: 0
-Total Commands : 39131
+Total Commands : 39132
 Total Windows  : 0
 Total Pages    : 0
-Static Data    : 485489
-Message area   : 262877
-Total Blocks   : 17375
+Static Data    : 485541
+Message area   : 262896
+Total Blocks   : 17377

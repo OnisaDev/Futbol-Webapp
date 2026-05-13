@@ -208,8 +208,13 @@ Object oZoomLiga is a cWebView
         Case Begin
             Case (NavigateData.eNavigateType = nfFromMain)
                 // If from main, this is a propbably a main file Select to Zoom.
+                //Añado para tarea
+                // InvokingObject = handle del objeto que disparó la navegación
+                // En este caso es el oDetailButton de SelectLiga (handle 274)
+                // Demuestra que InvokingObject identifica qué botón/objeto inició el salto de vista
+                Send ShowInfoBox (String(hoInvokingObject)) "InvokingObject"
                 Case Break
-
+                //
             Case (NavigateData.eNavigateType = nfFromParent)
                 // If from parent, this is a constrained drill down.
                 Case Break
