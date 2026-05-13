@@ -102,6 +102,28 @@ Object oZoomEquipo is a cWebView
             End_Procedure
 
         End_Object 
+        
+        //Añado para tarea
+        // Botón que navega de vuelta al SelectLiga (padre) desde ZoomEquipo (hijo)
+        // Navegación nfFromChild: el hijo navega hacia el Select del padre
+        Object oLigaBtn is a cWebMenuItem
+            Set psCaption to "Liga"
+            Set psCSSClass to "WebIcon_Search"
+            Set peActionDisplay to adMenu
+
+            WebRegisterPath ntNavigateForward oSelectLiga
+
+            Procedure OnClick
+                Send NavigatePath
+            End_Procedure
+
+            Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
+                // nfFromChild indica que venimos de un hijo hacia el Select padre
+                Move nfFromChild to NavigateData.eNavigateType
+            End_Procedure
+
+        End_Object
+        
     End_Object 
 
     Procedure SetActionButtons
@@ -118,7 +140,10 @@ Object oZoomEquipo is a cWebView
         WebSet pbRender of oSaveBtn to False
         WebSet pbRender of oCancelChangesBtn to False
         WebSet pbRender of oDeleteBtn to False
-
+        //Añado para tarea
+        //Mantenemos el boton Liga visible para poder navegar al Select padre (SelectLiga)
+        WebSet pbRender of oLigaBtn to True
+        //
         If (NavigateData.bReadOnly) Begin
             WebSet pbRender of oEditBtn to True
         End
