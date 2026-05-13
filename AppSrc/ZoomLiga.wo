@@ -1,7 +1,11 @@
 ﻿// D:\DataFlex Projects\futbol\AppSrc\ZoomLiga.wo
 // ZoomLiga
 //
-
+// Añado para tarea
+Use cequipoDataDictionary.dd
+Use cWebList.pkg
+Use cWebColumn.pkg
+//
 Use cWebView.pkg
 Use cWebPanel.pkg
 Use cWebMenuGroup.pkg
@@ -20,7 +24,16 @@ Object oZoomLiga is a cWebView
 
     Object oliga_DD is a cligaDataDictionary
     End_Object 
-
+    
+    // Añado para tarea
+    //DD de equipo vinculado al DD de liga como servidor
+    //Esto hace que la lista de equipos se filtre automaticamente por la liga actual
+    Object oequipo_DD is a cequipoDataDictionary
+        //DDO_Server indica que oliga_DD es el padre, establece la relacion de filtro
+        Set DDO_Server to oliga_DD
+    End_Object
+    //
+    
     Set Main_DD To oliga_DD
     Set Server  To oliga_DD
 
@@ -60,6 +73,27 @@ Object oZoomLiga is a cWebView
             Set peLabelPosition to lpTop
             Set psLabel to "EquiposMax"
         End_Object 
+        
+        //Añado para tarea
+        Object oEquiposList is a cWebList
+            //Ocupa las 12 columnas del panel (ancho completo)
+            Set piColumnSpan to 12
+            Set piColumnIndex to 0
+            //No rellena toda la altura disponible, solo lo necesario
+            Set pbFillHeight to False
+            //Muestra la cabecera con el nombre de la columna
+            Set pbShowHeader to True
+            
+            Object oEquipoNombre is a cWebColumn
+                //Campo que muestra la tabla equipo
+                Entry_Item equipo.Nombre
+                //Texto de la cabecera de la columna
+                Set psCaption to "Equipos de esta liga"
+                Set piWidth to 400
+            End_Object
+            
+        End_Object
+        //
     End_Object 
 
     Object oActionGroup is a cWebMenuGroup
@@ -104,19 +138,25 @@ Object oZoomLiga is a cWebView
             End_Procedure
         End_Object
         
-   // Añado para tarea       
+   // Añado para tarea    
+   // Boton "Equipos" en el menu de acciones del ZoomLiga
+   //Al pulsarlo navega a SelectEquipo filtrando por la liga actual (nfFromParent)   
         Object oEquiposBtn is a cWebMenuItem
             Set psCaption to "Equipos"
+            //Icono de búsqueda
             Set psCSSClass to "WebIcon_Search"
+            //Aparece en el menu de los 3 puntitos
             Set peActionDisplay to adMenu
-
+            //Registra la ruta de navegación hacia SelectEquipo
             WebRegisterPath ntNavigateForward oSelectEquipo
 
             Procedure OnClick
+                //Ejecuta la navegación registrada
                 Send NavigatePath
             End_Procedure
 
             Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
+                //Indica que venimos de un padre (liga), para que SelectEquipo filtre por ella
                 Move nfFromParent to NavigateData.eNavigateType
             End_Procedure
 
@@ -140,8 +180,10 @@ Object oZoomLiga is a cWebView
         WebSet pbRender of oCancelChangesBtn to False
         WebSet pbRender of oDeleteBtn to False
         //Añado para tarea
+        //Mantenemos el boton Equipos siempre visible independientemente del modo (Lectura/Edición)
         WebSet pbRender of oEquiposBtn to True
-
+        //
+        
         If (NavigateData.bReadOnly) Begin
             WebSet pbRender of oEditBtn to True
         End
@@ -179,9 +221,16 @@ Object oZoomLiga is a cWebView
             Case Else // must be nfUndefined
 
         Case End
-
+        //Añado para tarea
+        // TODO: La lista oEquiposList no muestra datos aunque el DD oequipo_DD
+        // está correctamente vinculado a oliga_DD via DDO_Server.
+        // Send Constrain y Send GridRefresh no son suficientes para mostrar la lista.
+        // Preguntar al profesor cómo forzar la carga de datos de un DD secundario
+        // en una lista embebida dentro de un ZoomView.
+        Send Constrain of oequipo_DD 
+        Send GridRefresh of oEquiposList
         Send SetActionButtons
-
+        //
     End_Procedure
 
 End_Object 
