@@ -3,13 +3,13 @@
 /* Color Palette */
 :root {
     /* Main Color = Blue */
-    --df-MainDark: #008f66;
-    --df-MainRegular: #00c48c;
-    --df-MainMedium: #00c48c;
-    --df-MainLight: #33d0a3;
-    --df-MainLight2: #66dcba;
-    --df-MainLight3: #99e8d1;
-    --df-MainLight4: #ccf3e8;
+    --df-MainDark: #071421;
+    --df-MainRegular: #0b7a3b;
+    --df-MainMedium: #0b7a3b;
+    --df-MainLight: #123f2b;
+    --df-MainLight2: #1f7a4b;
+    --df-MainLight3: #67d391;
+    --df-MainLight4: #e9fbf1;
 
     /* Error Color = Red */
     --df-ErrorDark: #a01f3a;
@@ -28,7 +28,7 @@
     --df-Grayscale3: #2d5244;
     --df-Grayscale4: #4a7a68;
     --df-Grayscale5: #7aaa97;
-    --df-Grayscale6: #b3d4cb;
+    --df-Grayscale6: transparent;
     --df-Grayscale7: #e8f5f1;
     --df-Grayscale8: #ffffff;
 
@@ -222,7 +222,10 @@ a:active {
 } 
 
 .WebApp.WebContainer {
-    background-color: var(--df-Grayscale6);
+    background:
+        linear-gradient(rgba(7, 20, 33, 0.55), rgba(7, 20, 33, 0.46)),
+        url("../../Images/dashboard-stadium.jpg") center / cover fixed;
+    background-color: #071421;
 }
 
 /* - - - - - - WebPanel - - - - - - */
@@ -299,7 +302,8 @@ This sets the background color for views & panels
     background-color: inherit;
 }
 .WebInlineView > div > div > div > .WebCon_ContentWrp{
-    background-color: var(--df-Grayscale6);
+    background: transparent;
+    background-color: transparent;
 }
 /* - - - - - - WebControl - - - - - - */
 
@@ -4598,7 +4602,8 @@ width: 21px;*/
 }
 
 .HeaderPanel .WebContainer {
-    background-color: var(--df-MainLight);
+    background: linear-gradient(90deg, #071421 0%, #0b7a3b 54%, #e63946 100%);
+    border-bottom: 1px solid rgba(247, 201, 72, 0.55);
     /*padding: 6px 0px;*/
 }
 
@@ -5242,3 +5247,175 @@ width: 21px;*/
     color: var(--df-ErrorRegular);
 }
 
+/* Fondo Mundial - pegar al FINAL de CssThemes/Datacontroltheme/theme.css */
+body,
+.WebApp,
+.WebApp.WebContainer {
+    background:
+        radial-gradient(circle at 18% 18%, rgba(247, 201, 72, 0.18), transparent 24%),
+        radial-gradient(circle at 88% 12%, rgba(230, 57, 70, 0.12), transparent 24%),
+        linear-gradient(rgba(7, 20, 33, 0.48), rgba(7, 20, 33, 0.42)),
+        url("../../Images/dashboard-stadium.jpg") center / cover fixed !important;
+    background-color: #071421 !important;
+}
+
+.WebInlineView > div > div > div > .WebCon_ContentWrp,
+.WebInlineView > div.WebContainer,
+.Dashboard,
+.Dashboard.WebContainer,
+.Dashboard .WebContainer,
+.Dashboard .WebCon_ContentWrp,
+.Dashboard .WebCon_Content,
+.SoccerDashboardPanel,
+.SoccerDashboardPanel .WebContainer,
+.SoccerDashboardPanel .WebCon_ContentWrp,
+.SoccerDashboardPanel .WebCon_Content,
+.TilesGroup,
+.TilesGroup > .WebCon_Inner {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.HeaderPanel {
+    box-shadow: 0 12px 32px rgba(7, 20, 33, 0.24) !important;
+}
+
+.HeaderPanel .WebContainer {
+    background:
+        linear-gradient(90deg, rgba(7, 20, 33, 0.96), rgba(11, 122, 59, 0.94) 48%, rgba(230, 57, 70, 0.90)) !important;
+    border-bottom: 1px solid rgba(247, 201, 72, 0.50) !important;
+}
+
+.HeaderPanel.WebPanel .WebContainer .WebButton.WebMenuButton button:before,
+.HeaderPanel.WebPanel .WebActionBar.WebToolBar span.WebItm_Icon:before {
+    color: #f7c948 !important;
+}
+
+
+/* Mundial dashboard: asegurar que los paneles del dashboard no tapen el estadio */
+.Dashboard,
+.Dashboard.WebContainer,
+.Dashboard .WebContainer,
+.Dashboard .WebCon_ContentWrp,
+.Dashboard .WebCon_Content,
+.SoccerDashboardPanel,
+.SoccerDashboardPanel .WebContainer,
+.SoccerDashboardPanel .WebCon_ContentWrp,
+.SoccerDashboardPanel .WebCon_Content,
+.TilesGroup,
+.TilesGroup > .WebCon_Inner {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.WebBreadcrumb {
+    background: rgba(7, 20, 33, 0.88) !important;
+    border-bottom: 1px solid rgba(247, 201, 72, 0.45) !important;
+}
+
+.HeaderPanel.WebPanel .WebContainer .WebButton.WebMenuButton button:before,
+.HeaderPanel.WebPanel .WebActionBar.WebToolBar span.WebItm_Icon:before {
+    color: #f7c948 !important;
+}
+
+
+/* ── FIX: cortar la propagación de navy de la línea 301 ──────────── */
+/* Solo los .WebContainer DENTRO de la vista Dashboard, para no afectar
+   a Web_VwCenter (que lleva el estadio) ni a otras vistas. */
+.WebInlineView.Dashboard .WebContainer,
+.WebView.Dashboard .WebContainer {
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+/* Valores de los campos: claros sobre navy */
+.WebForm input,
+.WebForm textarea,
+.WebForm select,
+.WebFrm_Value {
+    color: #eaf0f6 !important;
+    -webkit-text-fill-color: #eaf0f6 !important;   /* fuerza el color en campos readonly/disabled */
+    opacity: 1 !important;
+}
+.WebForm input::placeholder { color: #8aa0b5 !important; }
+
+/* Etiquetas (Nombre, País, Equipos...) */
+.WebFrm_Prompt,
+.WebForm label {
+    color: #c2cedb !important;
+}
+
+/* === LISTAS v2 === */
+.WebList {
+    background: linear-gradient(135deg, #0e2a1e 0%, #123f37 100%) !important;
+    border: 1px solid rgba(255,255,255,.10) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,.35) !important;
+}
+
+/* Mata el blanco esté en la tabla, el body, la fila o la celda */
+.WebList * {
+    background-color: transparent !important;
+    color: #eaf0f6 !important;
+    border-color: rgba(255,255,255,.08) !important;
+}
+.WebList td { border-bottom: 1px solid rgba(255,255,255,.07) !important; }
+
+/* Fila seleccionada: verde + texto oscuro (cubro varios nombres posibles) */
+.WebList_Row[aria-selected="true"],
+.WebList_Row[aria-selected="true"] td,
+.WebList_RowSelected, .WebList_RowSelected td,
+.WebList_Row.Current, .WebList_Row.Current td {
+    background: linear-gradient(135deg, #5cc285, #3ea76a) !important;
+    color: #0d2a1f !important;
+}
+
+/* === ZOOM — campos como cards estilo dashboard === */
+.WebForm {
+    background: linear-gradient(135deg, #0e2a1e 0%, #123f37 100%) !important;
+    border: 1px solid rgba(255,255,255,.10) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,.30) !important;
+    margin-bottom: 12px !important;
+    padding: 8px 16px !important;
+}
+
+/* Etiqueta en verde claro de acento */
+.WebFrm_Prompt {
+    color: #9fd8b6 !important;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+/* Valor claro y transparente para ver el card */
+.WebFrm_Value,
+.WebForm input,
+.WebForm input:disabled,
+.WebForm input[readonly] {
+    background: transparent !important;
+    color: #f2f6f9 !important;
+    -webkit-text-fill-color: #f2f6f9 !important;
+}
+
+/* === ZOOM — inputs legibles al VER y al EDITAR === */
+.WebForm input,
+.WebForm textarea {
+    background-color: rgba(0,0,0,.35) !important;
+    color: #f2f6f9 !important;
+    -webkit-text-fill-color: #f2f6f9 !important;
+    border: 1px solid rgba(255,255,255,.20) !important;
+    border-radius: 6px !important;
+    padding: 4px 8px !important;
+}
+/* por si el blanco estuviera en el wrapper y no en el input */
+.WebFrm_Value { background-color: transparent !important; }
+.WebForm input::placeholder { color: #8aa0b5 !important; }
+
+/* ===== BASE: azul marino → verde oscuro ===== */
+body,
+#viewport,
+.WebContainer.WebApp.Web_VwCenter,
+.Web_VwCenter {
+    background-color: #0e2e1b !important;   /* verde muy oscuro de base */
+    background-image: none !important;       /* limpia restos del velo/estadio */
+}
