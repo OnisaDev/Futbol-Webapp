@@ -7,6 +7,7 @@ Use cWebPanel.pkg
 Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
+Use SQL.pkg
 
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
@@ -20,6 +21,9 @@ Object oZoomJugador is a cWebView
     Set pbShowCaption to False
     Set Verify_Save_Msg to 0
     Set piMaxWidth to 1024
+    
+    Object oSQLHandleManager is a cSQLHandleManager
+    End_Object
 
     Object oliga_DD is a cligaDataDictionary
     End_Object 
@@ -29,7 +33,8 @@ Object oZoomJugador is a cWebView
     End_Object 
 
     Object ojugador_DD is a cjugadorDataDictionary
-        Set DDO_Server To oequipo_DD
+        Set DDO_Server to oequipo_DD
+        Set ParentNullAllowed equipo.File_Number to True
     End_Object 
 
     Set Main_DD To ojugador_DD
@@ -82,6 +87,35 @@ Object oZoomJugador is a cWebView
     End_Object 
 
     Object oActionGroup is a cWebMenuGroup
+        
+        Object oDespedirBtn is a cWebMenuItem
+            Set psCaption to "Despedir"
+            Set peActionDisplay to adMenu
+
+            Procedure OnClick
+                Integer iId
+                String sSQL
+                Handle hoConnection hoStatement
+
+                Move jugador.ID to iId
+                If (iId = 0) Procedure_Return
+
+                Move ("UPDATE jugador SET EquipoID = NULL WHERE ID = " + String(iId)) to sSQL
+
+                Get SQLFileConnect of oSQLHandleManager jugador.File_Number to hoConnection
+                If (hoConnection <> 0) Begin
+                    Get SQLOpen of hoConnection to hoStatement
+                    If (hoStatement <> 0) Begin
+                        Send SQLExecDirect of hoStatement sSQL
+                        Send SQLClose to hoStatement
+                    End
+                    Send SQLDisconnect to hoConnection
+                End
+
+                Send NavigateClose Self
+            End_Procedure
+            
+        End_Object
 
         Object oSaveBtn is a cWebMenuItem
             Set psCSSClass to "WebSaveMenuItem"
@@ -162,6 +196,7 @@ Object oZoomJugador is a cWebView
         WebSet pbRender of oSaveBtn to False
         WebSet pbRender of oCancelChangesBtn to False
         WebSet pbRender of oDeleteBtn to False
+        WebSet pbRender of oDespedirBtn to False
         
                     
 
@@ -176,6 +211,9 @@ Object oZoomJugador is a cWebView
             WebSet pbRender of oCancelChangesBtn to True
             WebSet pbRender of oDeleteBtn to bHasRecord
         End
+        
+        WebSet pbRender of oDespedirBtn to bHasRecord 
+        
     End_Procedure
 
     Procedure OnViewSaved Handle hoServer Boolean bChanged
