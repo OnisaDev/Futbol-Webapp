@@ -1,17 +1,16 @@
 ﻿// D:\DataFlex Projects\futbol\AppSrc\ZoomLiga.wo
 // ZoomLiga
 //
-// Añado para tarea
-Use cequipoDataDictionary.dd
-Use cWebList.pkg
-Use cWebColumn.pkg
-//
+
 Use cWebView.pkg
 Use cWebPanel.pkg
 Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
 Use cligaDataDictionary.dd
+Use cWebList.pkg
+Use cWebColumn.pkg
+Use cequipoDataDictionary.dd
 
 Object oZoomLiga is a cWebView
     Set piColumnCount to 12
@@ -24,14 +23,11 @@ Object oZoomLiga is a cWebView
 
     Object oliga_DD is a cligaDataDictionary
     End_Object 
-    
-    //DD de equipo vinculado al DD de liga como servidor
-    //Esto hace que la lista de equipos se filtre automaticamente por la liga actual
-    Object oequipo_DD is a cequipoDataDictionary
-        //DDO_Server indica que oliga_DD es el padre, establece la relacion de filtro
-        Set DDO_Server to oliga_DD
-    End_Object
  
+    Object oequipo_DD is a cequipoDataDictionary
+        Set DDO_Server to oliga_DD
+        Set Constrain_File to liga.File_Number
+    End_Object
     
     Set Main_DD To oliga_DD
     Set Server  To oliga_DD
@@ -63,6 +59,7 @@ Object oZoomLiga is a cWebView
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
             Set psLabel to "Equipos"
+            Set pbReadOnly to True
         End_Object 
 
         Object oligaEquiposMax is a cWebForm
@@ -73,26 +70,30 @@ Object oZoomLiga is a cWebView
             Set psLabel to "EquiposMax"
         End_Object 
         
-     
         Object oEquiposList is a cWebList
-            //Ocupa las 12 columnas del panel (ancho completo)
+            Set Server to oequipo_DD
+            Set psCaption to "Equipos de esta liga"
             Set piColumnSpan to 12
             Set piColumnIndex to 0
-            //No rellena toda la altura disponible, solo lo necesario
             Set pbFillHeight to False
-            //Muestra la cabecera con el nombre de la columna
+            Set pbScroll to False
+            Set piMinHeight to 250
             Set pbShowHeader to True
-            
+            Set pbServerOnShow to True
+
+            Procedure OnShow
+                Forward Send OnShow
+                Send GridRefresh
+            End_Procedure
+
             Object oEquipoNombre is a cWebColumn
-                //Campo que muestra la tabla equipo
                 Entry_Item equipo.Nombre
-                //Texto de la cabecera de la columna
                 Set psCaption to "Equipos de esta liga"
                 Set piWidth to 400
             End_Object
-            
         End_Object
-        //
+        
+     
     End_Object 
 
     Object oActionGroup is a cWebMenuGroup
@@ -226,13 +227,6 @@ Object oZoomLiga is a cWebView
 
         Case End
 
-        // TODO: La lista oEquiposList no muestra datos aunque el DD oequipo_DD
-        // está correctamente vinculado a oliga_DD via DDO_Server.
-        // Send Constrain y Send GridRefresh no son suficientes para mostrar la lista.
-        // Preguntar al profesor cómo forzar la carga de datos de un DD secundario
-        // en una lista embebida dentro de un ZoomView.
-        Send Constrain of oequipo_DD 
-        Send GridRefresh of oEquiposList
         Send SetActionButtons
         
     End_Procedure
