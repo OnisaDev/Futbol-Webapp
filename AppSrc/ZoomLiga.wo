@@ -25,14 +25,13 @@ Object oZoomLiga is a cWebView
     Object oliga_DD is a cligaDataDictionary
     End_Object 
     
-    // Añado para tarea
     //DD de equipo vinculado al DD de liga como servidor
     //Esto hace que la lista de equipos se filtre automaticamente por la liga actual
     Object oequipo_DD is a cequipoDataDictionary
         //DDO_Server indica que oliga_DD es el padre, establece la relacion de filtro
         Set DDO_Server to oliga_DD
     End_Object
-    //
+ 
     
     Set Main_DD To oliga_DD
     Set Server  To oliga_DD
@@ -74,7 +73,7 @@ Object oZoomLiga is a cWebView
             Set psLabel to "EquiposMax"
         End_Object 
         
-        //Añado para tarea
+     
         Object oEquiposList is a cWebList
             //Ocupa las 12 columnas del panel (ancho completo)
             Set piColumnSpan to 12
@@ -138,7 +137,7 @@ Object oZoomLiga is a cWebView
             End_Procedure
         End_Object
         
-   // Añado para tarea    
+ 
    // Boton "Equipos" en el menu de acciones del ZoomLiga
    //Al pulsarlo navega a SelectEquipo filtrando por la liga actual (nfFromParent)   
         Object oEquiposBtn is a cWebMenuItem
@@ -162,7 +161,7 @@ Object oZoomLiga is a cWebView
 
         End_Object
     End_Object    
-    // -
+ 
 
 
     Procedure SetActionButtons
@@ -179,10 +178,10 @@ Object oZoomLiga is a cWebView
         WebSet pbRender of oSaveBtn to False
         WebSet pbRender of oCancelChangesBtn to False
         WebSet pbRender of oDeleteBtn to False
-        //Añado para tarea
+    
         //Mantenemos el boton Equipos siempre visible independientemente del modo (Lectura/Edición)
         WebSet pbRender of oEquiposBtn to True
-        //
+        
         
         If (NavigateData.bReadOnly) Begin
             WebSet pbRender of oEditBtn to True
@@ -208,13 +207,13 @@ Object oZoomLiga is a cWebView
         Case Begin
             Case (NavigateData.eNavigateType = nfFromMain)
                 // If from main, this is a propbably a main file Select to Zoom.
-                //Añado para tarea
+              
                 // InvokingObject = handle del objeto que disparó la navegación
                 // En este caso es el oDetailButton de SelectLiga (handle 274)
                 // Demuestra que InvokingObject identifica qué botón/objeto inició el salto de vista
                 Send ShowInfoBox (String(hoInvokingObject)) "InvokingObject"
                 Case Break
-                //
+                
             Case (NavigateData.eNavigateType = nfFromParent)
                 // If from parent, this is a constrained drill down.
                 Case Break
@@ -226,7 +225,7 @@ Object oZoomLiga is a cWebView
             Case Else // must be nfUndefined
 
         Case End
-        //Añado para tarea
+
         // TODO: La lista oEquiposList no muestra datos aunque el DD oequipo_DD
         // está correctamente vinculado a oliga_DD via DDO_Server.
         // Send Constrain y Send GridRefresh no son suficientes para mostrar la lista.
@@ -235,7 +234,7 @@ Object oZoomLiga is a cWebView
         Send Constrain of oequipo_DD 
         Send GridRefresh of oEquiposList
         Send SetActionButtons
-        //
+        
     End_Procedure
 
 End_Object 

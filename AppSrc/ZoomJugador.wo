@@ -123,8 +123,7 @@ Object oZoomJugador is a cWebView
             End_Procedure
 
         End_Object 
-        
-        // Añado para tarea
+
         //Botón que navega a SelectPosicion desde ZoomJugador
         // Navegación de tipo Undefined porque no hay relación directa entre jugador y posicion
         // La relación existe a través de la tabla intermedia jugadorposicion
@@ -165,7 +164,7 @@ Object oZoomJugador is a cWebView
         WebSet pbRender of oDeleteBtn to False
         
                     
-        //Añado para tarea
+
         // Posiciones siempre visible, navegación libre sin restricción de padre/hijo
         WebSet pbRender of oPosicionBtn to True
 
