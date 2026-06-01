@@ -5282,7 +5282,7 @@ body,
 
 .HeaderPanel .WebContainer {
     background:
-        linear-gradient(90deg, rgba(7, 20, 33, 0.96), rgba(11, 122, 59, 0.94) 48%, rgba(230, 57, 70, 0.90)) !important;
+        linear-gradient(90deg, rgba(7, 20, 33, 0.96), rgba(11, 122, 59, 0.94)) !important;
     border-bottom: 1px solid rgba(247, 201, 72, 0.50) !important;
 }
 
@@ -5411,11 +5411,23 @@ body,
 .WebFrm_Value { background-color: transparent !important; }
 .WebForm input::placeholder { color: #8aa0b5 !important; }
 
-/* ===== BASE: azul marino → verde oscuro ===== */
 body,
 #viewport,
 .WebContainer.WebApp.Web_VwCenter,
 .Web_VwCenter {
-    background-color: #0e2e1b !important;   /* verde muy oscuro de base */
-    background-image: none !important;       /* limpia restos del velo/estadio */
+    background:
+        linear-gradient(rgba(7, 20, 33, 0.40), rgba(7, 20, 33, 0.55)),
+        url("../../Images/dashboard-stadium1.jpg") center / cover fixed !important;
+    background-color: #0e2e1b !important;   /* fallback si la imagen no carga */
+}
+
+/* Login: credenciales legibles (gana a la regla global clara) */
+.LoginView .WebForm input,
+.LoginView .WebForm .WebDynFrm {
+    color: #181818 !important;
+    -webkit-text-fill-color: #181818 !important;
+}
+.LoginView .WebForm input::placeholder {
+    color: #788680 !important;
+    opacity: 1;
 }
