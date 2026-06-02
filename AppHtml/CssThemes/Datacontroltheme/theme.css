@@ -616,10 +616,11 @@ div.WebCon_TopLabel.WebCon_FloatEnabled > label.WebCon_Float {
 
 .WebCombo select {
     display: inline;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.25); 
+    border-radius: 6px; 
     padding: 0px 5px 2px;
     
-    background: none;
+    background: rgba(0, 0, 0, 0.15);
     height: var(--df-CtrHeight);
 
     font-family: var(--df-DtaFont);
@@ -632,6 +633,13 @@ div.WebCon_TopLabel.WebCon_FloatEnabled > label.WebCon_Float {
 .WebCombo .WebFrm_Wrapper {
     min-height: 23px;
 } 
+
+.WebCombo {
+    background-color: rgba(255, 255, 255, 0.03);  /* tono de la tarjeta */
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+}
 
 /* - - - - - - WebCheckbox - - - - - - */
 
@@ -5322,8 +5330,8 @@ body,
 /* ── FIX: cortar la propagación de navy de la línea 301 ──────────── */
 /* Solo los .WebContainer DENTRO de la vista Dashboard, para no afectar
    a Web_VwCenter (que lleva el estadio) ni a otras vistas. */
-.WebInlineView.Dashboard .WebContainer,
-.WebView.Dashboard .WebContainer {
+.WebInlineView .WebContainer,
+.WebView .WebContainer {
     background-color: transparent !important;
     background-image: none !important;
 }
