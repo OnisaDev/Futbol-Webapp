@@ -7,7 +7,7 @@ Use cWebPanel.pkg
 Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
-Use SQL.pkg 
+
 
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
@@ -21,9 +21,7 @@ Object oZoomEntrenador is a cWebView
     Set pbShowCaption to False
     Set Verify_Save_Msg to 0
     Set piMaxWidth to 1024
-    
-    Object oSQLHandleManager is a cSQLHandleManager
-    End_Object
+   
 
     Object oliga_DD is a cligaDataDictionary
     End_Object 
@@ -34,7 +32,7 @@ Object oZoomEntrenador is a cWebView
 
     Object oentrenador_DD is a centrenadorDataDictionary
         Set DDO_Server to oequipo_DD
-        Set ParentNullAllowed equipo.File_Number to True
+        
     End_Object 
 
     Set Main_DD To oentrenador_DD
@@ -77,45 +75,26 @@ Object oZoomEntrenador is a cWebView
             Set psLabel to "EquipoID"
             Set pbPromptButton to True
 
-
             WebRegisterPath ntNavigateForward oSelectEquipo
 
             Procedure OnPrompt
                 Send NavigatePath
             End_Procedure
         End_Object 
+        
+        Object oDespedirBtn is a cWebButton
+            Set psCaption to "Despedir"
+            Set piColumnSpan to 2
+            Set piColumnIndex to 0
+            Procedure OnClick
+                Send ChangeEditMode True
+                Send Clear of oequipo_DD     // limpia el buffer del PADRE
+                Send Request_Save
+            End_Procedure
+        End_Object
     End_Object 
 
-    Object oActionGroup is a cWebMenuGroup
-        
-        Object oDespedirBtn is a cWebMenuItem
-            Set psCaption to "Despedir"
-            Set peActionDisplay to adMenu
-
-            Procedure OnClick
-                Integer iId
-                String sSQL
-                Handle hoConnection hoStatement
-
-                Move entrenador.ID to iId
-                If (iId = 0) Procedure_Return
-
-                Move ("UPDATE entrenador SET EquipoID = NULL WHERE ID = " + String(iId)) to sSQL
-
-                Get SQLFileConnect of oSQLHandleManager entrenador.File_Number to hoConnection
-                If (hoConnection <> 0) Begin
-                    Get SQLOpen of hoConnection to hoStatement
-                    If (hoStatement <> 0) Begin
-                        Send SQLExecDirect of hoStatement sSQL
-                        Send SQLClose to hoStatement
-                    End
-                    Send SQLDisconnect to hoConnection
-                End
-
-                Send NavigateClose Self
-            End_Procedure
-        
-        End_Object
+    Object oActionGroup is a cWebMenuGroup    
 
         Object oSaveBtn is a cWebMenuItem
             Set psCSSClass to "WebSaveMenuItem"

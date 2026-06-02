@@ -201,5 +201,4 @@ Object oWebApp is a cWebApp
     Set phoDefaultView to oDashboard
 
 End_Object
-
 Send StartWebApp of oWebApp

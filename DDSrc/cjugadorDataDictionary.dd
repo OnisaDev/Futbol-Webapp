@@ -15,6 +15,8 @@ Class cjugadorDataDictionary is a DataDictionary
 
         Set Add_Client_File to hijojugador.File_Number
         Set Add_Client_File to jugadorposicion.File_Number
+        
+        Set ParentNullAllowed equipo.File_Number to True
 
         Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
         Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
