@@ -106,9 +106,6 @@ Object oZoomJugador is a cWebView
                 Send NavigatePath
             End_Procedure
             
-            Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
-                Move nfUndefined to NavigateData.eNavigateType
-            End_Procedure
         End_Object
     End_Object
 
