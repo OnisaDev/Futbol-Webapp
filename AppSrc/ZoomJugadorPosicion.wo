@@ -1,5 +1,5 @@
-﻿// D:\DataFlex Projects\futbol\AppSrc\ZoomJugador.wo
-// ZoomJugador
+﻿// D:\DataFlex Projects\futbol\AppSrc\ZoomJugadorPosicion.wo
+// ZoomJugadorPosicion
 //
 
 Use cWebView.pkg
@@ -7,22 +7,21 @@ Use cWebPanel.pkg
 Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
-Use cWebButton.pkg
-Use cWebCombo.pkg
 
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
 Use cjugadorDataDictionary.dd
+Use cposicionDataDictionary.dd
+Use cjugadorposicionDataDictionary.dd
 
-Object oZoomJugador is a cWebView
+Object oZoomJugadorPosicion is a cWebView
     Set piColumnCount to 12
-    Set psCaption to "ZoomJugador"
+    Set psCaption to "ZoomJugadorPosicion"
     Set peWebViewStyle to wvsDrilldown
     Set peViewType to vtZoom
     Set pbShowCaption to False
     Set Verify_Save_Msg to 0
     Set piMaxWidth to 1024
-    
 
     Object oliga_DD is a cligaDataDictionary
     End_Object 
@@ -32,91 +31,66 @@ Object oZoomJugador is a cWebView
     End_Object 
 
     Object ojugador_DD is a cjugadorDataDictionary
-        Set DDO_Server to oequipo_DD
-
+        Set DDO_Server To oequipo_DD
     End_Object 
 
-    Set Main_DD To ojugador_DD
-    Set Server  To ojugador_DD
+    Object oposicion_DD is a cposicionDataDictionary
+    End_Object 
+
+    Object ojugadorposicion_DD is a cjugadorposicionDataDictionary
+        Set DDO_Server To ojugador_DD
+        Set DDO_Server To oposicion_DD
+    End_Object 
+
+    Set Main_DD To ojugadorposicion_DD
+    Set Server  To ojugadorposicion_DD
 
 
     Object oWebMainPanel is a cWebPanel
         Set piColumnCount to 12
         WebSetResponsive piColumnCount rmMobile to 4
 
-        Object ojugadorNombre is a cWebForm
-            Entry_Item jugador.Nombre
-            Set piColumnSpan to 10
-            Set piColumnIndex to 0
-            Set peLabelPosition to lpTop
-            Set psLabel to "Nombre"
-        End_Object 
-
-        Object ojugadorApellido is a cWebForm
-            Entry_Item jugador.Apellido
-            Set piColumnSpan to 10
-            Set piColumnIndex to 0
-            Set peLabelPosition to lpTop
-            Set psLabel to "Apellido"
-        End_Object 
-
-        Object ojugadorNacionalidad is a cWebCombo
-            Entry_Item jugador.Nacionalidad
-            Set piColumnSpan to 8
-            Set piColumnIndex to 0
-            Set peLabelPosition to lpTop
-            Set psLabel to "Nacionalidad"
-        End_Object 
-
-        Object oequipoID is a cWebForm
-            Entry_Item equipo.ID
+        Object ojugadorposicionID is a cWebForm
+            Entry_Item jugadorposicion.ID
             Set piColumnSpan to 2
             Set piColumnIndex to 0
             Set peLabelPosition to lpTop
-            Set psLabel to "EquipoID"
+            Set psLabel to "ID"
+        End_Object 
+
+        Object ojugadorID is a cWebForm
+            Entry_Item jugador.ID
+            Set piColumnSpan to 2
+            Set piColumnIndex to 0
+            Set peLabelPosition to lpTop
+            Set psLabel to "JugadorID"
             Set pbPromptButton to True
-            
-            WebRegisterPath ntNavigateForward oSelectEquipo
-            
+
+            WebRegisterPath ntNavigateForward oSelectJugador
+
             Procedure OnPrompt
                 Send NavigatePath
             End_Procedure
         End_Object 
-         
-        Object oDespedirBtn is a cWebButton
-            Set psCaption to "Despedir"
+
+        Object oposicionID is a cWebForm
+            Entry_Item posicion.ID
             Set piColumnSpan to 2
             Set piColumnIndex to 0
-            Procedure OnClick
-                Send ChangeEditMode True
-                Send Clear of oequipo_DD     // limpia el buffer del PADRE
-                Send Request_Save
-            End_Procedure
-        End_Object
-        
-        
-        Object oPosicionBtn is a cWebButton
-            Set psCaption to "Posiciones"
-            Set piColumnSpan to 2
-            Set piColumnIndex to 0
+            Set peLabelPosition to lpTop
+            Set psLabel to "PosicionID"
+            Set pbPromptButton to True
 
-            WebRegisterPath ntNavigateForward oSelectJugadorPosicion
 
-            Procedure OnClick
+            WebRegisterPath ntNavigateForward oSelectPosicion
+
+            Procedure OnPrompt
                 Send NavigatePath
             End_Procedure
-            
-        End_Object
-    End_Object
-
-
- 
-
-
+        End_Object 
+    End_Object 
 
     Object oActionGroup is a cWebMenuGroup
-        
-
 
         Object oSaveBtn is a cWebMenuItem
             Set psCSSClass to "WebSaveMenuItem"
@@ -149,6 +123,7 @@ Object oZoomJugador is a cWebView
 
         End_Object 
 
+
         Object oCancelChangesBtn is a cWebMenuItem
             Set psCSSClass to "WebIcon_Refresh"
             Set psCaption to "Clear Changes"
@@ -158,29 +133,6 @@ Object oZoomJugador is a cWebView
             End_Procedure
 
         End_Object 
-
-        //Botón que navega a SelectPosicion desde ZoomJugador
-        // Navegación de tipo Undefined porque no hay relación directa entre jugador y posicion
-        // La relación existe a través de la tabla intermedia jugadorposicion
-        Object oPosicionBtn is a cWebMenuItem
-            Set psCaption to "Posiciones"
-            Set psCSSClass to "WebIcon_Search"
-            Set peActionDisplay to adMenu
-
-            WebRegisterPath ntNavigateForward oSelectPosicion
-
-            Procedure OnClick
-                Send NavigatePath
-            End_Procedure
-
-            Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
-                // nfUndefined porque no hay relacion DD directa entre jugador y posicion
-                Move nfUndefined to NavigateData.eNavigateType
-            End_Procedure
-
-        End_Object
-        
-        
     End_Object 
 
     Procedure SetActionButtons
@@ -197,12 +149,6 @@ Object oZoomJugador is a cWebView
         WebSet pbRender of oSaveBtn to False
         WebSet pbRender of oCancelChangesBtn to False
         WebSet pbRender of oDeleteBtn to False
-        WebSet pbRender of oDespedirBtn to False
-        
-                    
-
-        // Posiciones siempre visible, navegación libre sin restricción de padre/hijo
-        WebSet pbRender of oPosicionBtn to True
 
         If (NavigateData.bReadOnly) Begin
             WebSet pbRender of oEditBtn to True
@@ -212,9 +158,6 @@ Object oZoomJugador is a cWebView
             WebSet pbRender of oCancelChangesBtn to True
             WebSet pbRender of oDeleteBtn to bHasRecord
         End
-        
-        WebSet pbRender of oDespedirBtn to bHasRecord 
-        
     End_Procedure
 
     Procedure OnViewSaved Handle hoServer Boolean bChanged

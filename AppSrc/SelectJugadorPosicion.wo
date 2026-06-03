@@ -1,0 +1,127 @@
+﻿// D:\DataFlex Projects\futbol\AppSrc\SelectJugadorPosicion.wo
+Use cWebView.pkg
+Use cWebPanel.pkg
+Use cWebList.pkg
+Use cWebColumn.pkg
+Use cWebButton.pkg
+
+Use cligaDataDictionary.dd
+Use cequipoDataDictionary.dd
+Use cjugadorDataDictionary.dd
+Use cposicionDataDictionary.dd
+Use cjugadorposicionDataDictionary.dd
+
+Object oSelectJugadorPosicion is a cWebView
+    Set psCaption to "Editar posiciones"
+    Set peWebViewStyle to wvsDrilldown
+    Set peViewType to vtSelect
+    Set piColumnCount to 12
+    Set pbShowCaption to False
+    Set piMaxWidth to 1024
+    Set Verify_Save_Msg to 0
+
+    Object oliga_DD is a cligaDataDictionary
+    End_Object 
+    Object oequipo_DD is a cequipoDataDictionary
+        Set DDO_Server to oliga_DD
+    End_Object 
+    Object ojugador_DD is a cjugadorDataDictionary
+        Set DDO_Server to oequipo_DD
+    End_Object 
+    Object oposicion_DD is a cposicionDataDictionary
+    End_Object 
+    Object ojugadorposicion_DD is a cjugadorposicionDataDictionary
+        Set DDO_Server to ojugador_DD
+        Set DDO_Server to oposicion_DD
+    End_Object 
+
+    Object oTodasPosicion_DD is a cposicionDataDictionary
+    End_Object 
+
+    Set Main_DD to ojugadorposicion_DD
+    Set Server  to ojugadorposicion_DD
+
+    Send AddDDOStructure oTodasPosicion_DD
+
+    // ===== Botonera inferior =====
+   Object oBtnPanel is a cWebPanel
+        Set peRegion to prBottom
+        Set piHeight to 60
+        Set piColumnCount to 12
+
+        // IZQUIERDA: Añadir (trae de "Todas" -> "del jugador")
+        Object oBtnAnadir is a cWebButton
+            Set psCaption to "<- Anadir"
+            Set piColumnSpan to 6
+            Set piColumnIndex to 0
+            Procedure OnClick
+                Integer iJug iPos
+                Move jugador.ID  to iJug
+                Move posicion.ID to iPos
+                If (iJug = 0 or iPos = 0) Procedure_Return
+
+                Clear jugadorposicion
+                Move iJug to jugadorposicion.JugadorID
+                Move iPos to jugadorposicion.PosicionID
+                SaveRecord jugadorposicion
+
+                Send RefreshListFromDD of oListAsignadas
+                Send RefreshListFromDD of oListTodas
+            End_Procedure
+        End_Object 
+
+        // DERECHA: Quitar (saca de "del jugador")
+        Object oBtnQuitar is a cWebButton
+            Set psCaption to "Quitar ->"
+            Set piColumnSpan to 6
+            Set piColumnIndex to 6
+            Procedure OnClick
+                If (jugadorposicion.ID = 0) Procedure_Return
+                Send Request_Delete
+                Send RefreshListFromDD of oListAsignadas
+                Send RefreshListFromDD of oListTodas
+            End_Procedure
+        End_Object 
+    End_Object
+
+    // ===== Listas (centro) =====
+    Object oPanel is a cWebPanel
+        Set peRegion to prCenter
+
+        Object oPanelIzq is a cWebPanel
+            Set peRegion to prLeft
+            Set piWidth to 450
+            Object oListAsignadas is a cWebList
+                Set pbFillHeight to True
+                Set pbShowHeader to True
+                Set pbServerOnRowClick to True
+                Object oColAsig is a cWebColumn
+                    Entry_Item posicion.Nombre
+                    Set psCaption to "Posiciones del jugador"
+                    Set piWidth to 400
+                End_Object 
+            End_Object 
+        End_Object 
+
+        Object oPanelDer is a cWebPanel
+            Set peRegion to prCenter
+            Object oListTodas is a cWebList
+                Set pbFillHeight to True
+                Set pbShowHeader to True
+                Set pbServerOnRowClick to True
+                Set Server to oTodasPosicion_DD
+                Object oColTodas is a cWebColumn
+                    Entry_Item posicion.Nombre
+                    Set psCaption to "Todas las posiciones"
+                    Set piWidth to 400
+                End_Object 
+            End_Object 
+        End_Object 
+    End_Object 
+
+    Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
+        Forward Send OnNavigateForward NavigateData hoInvokingView hoInvokingObject
+        Send RefreshListFromDD of oListTodas
+    End_Procedure 
+
+End_Object
